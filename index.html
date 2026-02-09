@@ -1,0 +1,1072 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>研究者プロフィール | 3デザイン</title>
+    <style>
+      :root {
+        --tab-bg: #ffffff;
+        --tab-border: #e5e5e5;
+        --tab-text: #333333;
+        --tab-active: #2a6f3f;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: #f4f4f4;
+        color: #222222;
+        font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", sans-serif;
+        min-height: 100vh;
+        padding: 24px;
+      }
+      .tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        margin: 0 auto 22px;
+      }
+      .tab {
+        border: 1px solid var(--tab-border);
+        background: var(--tab-bg);
+        color: var(--tab-text);
+        padding: 10px 18px;
+        border-radius: 999px;
+        font-size: 14px;
+        letter-spacing: 0.08em;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      }
+      .tab[aria-selected="true"] {
+        border-color: var(--tab-active);
+        box-shadow: 0 8px 18px rgba(42, 111, 63, 0.2);
+        transform: translateY(-1px);
+      }
+      .panel {
+        display: none;
+      }
+      .panel.active {
+        display: block;
+      }
+
+      /* ===== Simple Design ===== */
+      .design-simple {
+        --bg: #eef6f0;
+        --card: #ffffff;
+        --text: #222222;
+        --muted: #555555;
+        --accent: #2a6f3f;
+        font-family: "Noto Serif JP", "Yu Mincho", "Hiragino Mincho ProN", serif;
+      }
+      .simple-wrap {
+        background: var(--bg);
+        min-height: 70vh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+      }
+      .simple-card {
+        background: var(--card);
+        width: min(680px, 100%);
+        padding: 36px 40px;
+        border-radius: 16px;
+        box-shadow: 0 14px 34px rgba(0, 0, 0, 0.12);
+        text-align: center;
+      }
+      .simple-name {
+        font-size: clamp(26px, 3.2vw, 34px);
+        letter-spacing: 0.04em;
+        margin: 0 0 14px;
+      }
+      .simple-affiliation {
+        font-size: 15px;
+        line-height: 1.8;
+        margin: 0 0 22px;
+        color: var(--muted);
+      }
+      .simple-links {
+        display: inline-flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px 14px;
+        margin: -8px 0 18px;
+      }
+      .simple-links a {
+        font-size: 13px;
+        color: var(--accent);
+        text-decoration: none;
+        border-bottom: 1px solid rgba(42, 111, 63, 0.35);
+        padding-bottom: 2px;
+      }
+      .simple-links a:hover {
+        opacity: 0.8;
+      }
+      .simple-theme-label {
+        font-size: 13px;
+        letter-spacing: 0.12em;
+        color: var(--accent);
+        margin: 0 0 8px;
+      }
+      .simple-theme {
+        font-size: clamp(20px, 2.5vw, 26px);
+        margin: 0;
+      }
+      .simple-section-title {
+        font-size: 14px;
+        letter-spacing: 0.12em;
+        color: var(--accent);
+        margin: 28px 0 10px;
+      }
+      .simple-body-text {
+        font-size: 15px;
+        line-height: 1.9;
+        color: var(--text);
+        text-align: left;
+        margin: 0 0 12px;
+      }
+      .simple-list {
+        text-align: left;
+        margin: 0 0 14px;
+        padding-left: 18px;
+        color: var(--text);
+        line-height: 1.8;
+        font-size: 15px;
+      }
+      .simple-list li {
+        margin: 6px 0;
+      }
+      .simple-keywords {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 10px;
+        justify-content: center;
+        margin: 6px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+      .simple-keywords li {
+        background: #f2f6f2;
+        color: #2a6f3f;
+        border: 1px solid rgba(42, 111, 63, 0.18);
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-size: 12px;
+      }
+      .simple-meta {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 14px 22px;
+        font-size: 13px;
+        color: var(--muted);
+        margin-top: 18px;
+      }
+      .simple-note {
+        font-size: 12px;
+        color: var(--muted);
+        margin: 6px 0 0;
+        text-align: center;
+      }
+      .simple-divider {
+        width: 64px;
+        height: 2px;
+        background: var(--accent);
+        margin: 20px auto 18px;
+        border-radius: 2px;
+      }
+
+      /* ===== English Design ===== */
+      .design-english {
+        --bg: #edf3ff;
+        --card: #ffffff;
+        --text: #222222;
+        --muted: #555555;
+        --accent: #2b6fd6;
+        font-family: "Noto Serif", "Times New Roman", serif;
+      }
+      .english-wrap {
+        background: var(--bg);
+        min-height: 70vh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+      }
+      .english-card {
+        background: var(--card);
+        width: min(680px, 100%);
+        padding: 36px 40px;
+        border-radius: 16px;
+        box-shadow: 0 14px 34px rgba(0, 0, 0, 0.12);
+        text-align: center;
+      }
+      .english-name {
+        font-size: clamp(26px, 3.2vw, 34px);
+        letter-spacing: 0.04em;
+        margin: 0 0 14px;
+      }
+      .english-affiliation {
+        font-size: 15px;
+        line-height: 1.8;
+        margin: 0 0 22px;
+        color: var(--muted);
+      }
+      .english-links {
+        display: inline-flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px 14px;
+        margin: -8px 0 18px;
+      }
+      .english-links a {
+        font-size: 13px;
+        color: var(--accent);
+        text-decoration: none;
+        border-bottom: 1px solid rgba(42, 111, 63, 0.35);
+        padding-bottom: 2px;
+      }
+      .english-links a:hover {
+        opacity: 0.8;
+      }
+      .english-theme-label {
+        font-size: 13px;
+        letter-spacing: 0.12em;
+        color: var(--accent);
+        margin: 0 0 8px;
+      }
+      .english-theme {
+        font-size: clamp(20px, 2.5vw, 26px);
+        margin: 0;
+      }
+      .english-section-title {
+        font-size: 14px;
+        letter-spacing: 0.12em;
+        color: var(--accent);
+        margin: 28px 0 10px;
+      }
+      .english-body-text {
+        font-size: 15px;
+        line-height: 1.9;
+        color: var(--text);
+        text-align: left;
+        margin: 0 0 12px;
+      }
+      .english-list {
+        text-align: left;
+        margin: 0 0 14px;
+        padding-left: 18px;
+        color: var(--text);
+        line-height: 1.8;
+        font-size: 15px;
+      }
+      .english-list li {
+        margin: 6px 0;
+      }
+      .english-keywords {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 10px;
+        justify-content: center;
+        margin: 6px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+      .english-keywords li {
+        background: #f1f6ff;
+        color: #2b6fd6;
+        border: 1px solid rgba(43, 111, 214, 0.22);
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-size: 12px;
+      }
+      .english-meta {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 14px 22px;
+        font-size: 13px;
+        color: var(--muted);
+        margin-top: 18px;
+      }
+      .english-note {
+        font-size: 12px;
+        color: var(--muted);
+        margin: 6px 0 0;
+        text-align: center;
+      }
+      .english-divider {
+        width: 64px;
+        height: 2px;
+        background: var(--accent);
+        margin: 20px auto 18px;
+        border-radius: 2px;
+      }
+
+      /* ===== Chinese Design ===== */
+      .design-chinese {
+        --bg: #fff2f2;
+        --card: #ffffff;
+        --text: #222222;
+        --muted: #555555;
+        --accent: #d64545;
+        font-family: "Noto Serif SC", "Songti SC", "STSong", serif;
+      }
+      .chinese-wrap {
+        background: var(--bg);
+        min-height: 70vh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+      }
+      .chinese-card {
+        background: var(--card);
+        width: min(680px, 100%);
+        padding: 36px 40px;
+        border-radius: 16px;
+        box-shadow: 0 14px 34px rgba(0, 0, 0, 0.12);
+        text-align: center;
+      }
+      .chinese-name {
+        font-size: clamp(26px, 3.2vw, 34px);
+        letter-spacing: 0.04em;
+        margin: 0 0 14px;
+      }
+      .chinese-affiliation {
+        font-size: 15px;
+        line-height: 1.8;
+        margin: 0 0 22px;
+        color: var(--muted);
+      }
+      .chinese-links {
+        display: inline-flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px 14px;
+        margin: -8px 0 18px;
+      }
+      .chinese-links a {
+        font-size: 13px;
+        color: var(--accent);
+        text-decoration: none;
+        border-bottom: 1px solid rgba(214, 69, 69, 0.35);
+        padding-bottom: 2px;
+      }
+      .chinese-links a:hover {
+        opacity: 0.8;
+      }
+      .chinese-theme-label {
+        font-size: 13px;
+        letter-spacing: 0.12em;
+        color: var(--accent);
+        margin: 0 0 8px;
+      }
+      .chinese-theme {
+        font-size: clamp(20px, 2.5vw, 26px);
+        margin: 0;
+      }
+      .chinese-section-title {
+        font-size: 14px;
+        letter-spacing: 0.12em;
+        color: var(--accent);
+        margin: 28px 0 10px;
+      }
+      .chinese-body-text {
+        font-size: 15px;
+        line-height: 1.9;
+        color: var(--text);
+        text-align: left;
+        margin: 0 0 12px;
+      }
+      .chinese-list {
+        text-align: left;
+        margin: 0 0 14px;
+        padding-left: 18px;
+        color: var(--text);
+        line-height: 1.8;
+        font-size: 15px;
+      }
+      .chinese-list li {
+        margin: 6px 0;
+      }
+      .chinese-keywords {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 10px;
+        justify-content: center;
+        margin: 6px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+      .chinese-keywords li {
+        background: #fff1f1;
+        color: #d64545;
+        border: 1px solid rgba(214, 69, 69, 0.22);
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-size: 12px;
+      }
+      .chinese-meta {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 14px 22px;
+        font-size: 13px;
+        color: var(--muted);
+        margin-top: 18px;
+      }
+      .chinese-note {
+        font-size: 12px;
+        color: var(--muted);
+        margin: 6px 0 0;
+        text-align: center;
+      }
+      .chinese-divider {
+        width: 64px;
+        height: 2px;
+        background: var(--accent);
+        margin: 20px auto 18px;
+        border-radius: 2px;
+      }
+
+      /* ===== Pop Design ===== */
+      .design-pop {
+        --bg-a: #fff3a6;
+        --bg-b: #ffd1ef;
+        --bg-c: #c8f7ff;
+        --card: #ffffff;
+        --text: #1f1f1f;
+        --muted: #4b4b4b;
+        --accent: #ff5a7a;
+        --accent-2: #3db7ff;
+        --accent-3: #34c77a;
+        font-family: "BIZ UDPGothic", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+      }
+      .pop-wrap {
+        min-height: 70vh;
+        background:
+          radial-gradient(140px 140px at 12% 18%, #ffffff 0, #ffffff 35%, transparent 36%),
+          radial-gradient(180px 180px at 88% 16%, #ffffff 0, #ffffff 34%, transparent 35%),
+          radial-gradient(220px 220px at 84% 82%, #ffffff 0, #ffffff 32%, transparent 33%),
+          linear-gradient(135deg, var(--bg-a), var(--bg-b), var(--bg-c));
+        display: grid;
+        place-items: center;
+        padding: 28px;
+      }
+      .pop-card {
+        width: min(760px, 100%);
+        background: var(--card);
+        border-radius: 22px;
+        padding: 38px 42px 44px;
+        text-align: center;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.14);
+        position: relative;
+        overflow: hidden;
+      }
+      .pop-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(220px 120px at -10% -10%, rgba(255, 90, 122, 0.18), transparent 60%),
+          radial-gradient(260px 140px at 110% 0%, rgba(61, 183, 255, 0.18), transparent 60%),
+          radial-gradient(260px 140px at 100% 120%, rgba(52, 199, 122, 0.2), transparent 60%);
+        pointer-events: none;
+      }
+      .pop-illustration {
+        width: min(520px, 90%);
+        margin: 6px auto 18px;
+        position: relative;
+        z-index: 1;
+      }
+      .pop-illustration svg {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      .pop-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: linear-gradient(90deg, var(--accent), var(--accent-2));
+        color: #ffffff;
+        padding: 6px 14px;
+        border-radius: 999px;
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        margin-bottom: 16px;
+        position: relative;
+        z-index: 1;
+      }
+      .pop-name {
+        font-size: clamp(28px, 3.4vw, 40px);
+        margin: 0 0 10px;
+        letter-spacing: 0.06em;
+        position: relative;
+        z-index: 1;
+      }
+      .pop-affiliation {
+        font-size: 15px;
+        line-height: 1.8;
+        color: var(--muted);
+        margin: 0 0 18px;
+        position: relative;
+        z-index: 1;
+      }
+      .pop-links {
+        display: inline-flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px 14px;
+        margin: -6px 0 18px;
+        position: relative;
+        z-index: 1;
+      }
+      .pop-links a {
+        font-size: 13px;
+        color: #c72745;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(199, 39, 69, 0.35);
+        padding-bottom: 2px;
+      }
+      .pop-links a:hover {
+        opacity: 0.8;
+      }
+      .pop-chips {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin: 0 0 24px;
+        position: relative;
+        z-index: 1;
+      }
+      .pop-chip {
+        background: #fff4f7;
+        color: #c72745;
+        border: 1px solid rgba(199, 39, 69, 0.2);
+        padding: 6px 14px;
+        border-radius: 999px;
+        font-size: 13px;
+      }
+      .pop-chip.alt {
+        background: #f0fbff;
+        color: #1679b7;
+        border-color: rgba(22, 121, 183, 0.2);
+      }
+      .pop-chip.alt2 {
+        background: #f1fff6;
+        color: #1f8a5a;
+        border-color: rgba(31, 138, 90, 0.2);
+      }
+      .pop-section {
+        text-align: left;
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 18px 20px 16px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+        margin: 0 0 16px;
+        position: relative;
+        z-index: 1;
+      }
+      .pop-section-title {
+        font-size: 14px;
+        letter-spacing: 0.14em;
+        color: var(--accent);
+        margin: 0 0 10px;
+      }
+      .pop-body-text {
+        font-size: 15px;
+        line-height: 1.9;
+        margin: 0 0 12px;
+      }
+      .pop-list {
+        margin: 0;
+        padding-left: 18px;
+        font-size: 15px;
+        line-height: 1.8;
+      }
+      .pop-list li {
+        margin: 6px 0;
+      }
+      .pop-keywords {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 10px;
+        justify-content: center;
+        margin: 6px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+      .pop-keywords li {
+        background: #fff4f7;
+        color: #c72745;
+        border: 1px solid rgba(199, 39, 69, 0.18);
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-size: 12px;
+      }
+      .pop-meta {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 14px 22px;
+        font-size: 13px;
+        color: var(--muted);
+        margin-top: 18px;
+      }
+      .pop-note {
+        font-size: 12px;
+        color: var(--muted);
+        margin: 6px 0 0;
+        text-align: center;
+      }
+      .pop-accent-bar {
+        height: 6px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent-3));
+        margin: 20px auto 22px;
+        width: min(320px, 80%);
+      }
+      @media (max-width: 560px) {
+        body {
+          padding: 16px;
+        }
+        .tabs {
+          gap: 8px;
+          margin-bottom: 16px;
+        }
+        .tab {
+          flex: 1 1 calc(50% - 8px);
+          text-align: center;
+          padding: 10px 8px;
+          font-size: 12px;
+          letter-spacing: 0.04em;
+        }
+        .simple-card,
+        .english-card,
+        .chinese-card,
+        .pop-card {
+          padding: 26px 18px 30px;
+        }
+        .pop-section {
+          padding: 16px;
+        }
+        .simple-name,
+        .english-name,
+        .chinese-name,
+        .pop-name {
+          font-size: clamp(22px, 6vw, 28px);
+        }
+        .simple-affiliation,
+        .english-affiliation,
+        .chinese-affiliation,
+        .pop-affiliation {
+          font-size: 13px;
+        }
+        .simple-body-text,
+        .english-body-text,
+        .chinese-body-text,
+        .pop-body-text {
+          font-size: 14px;
+        }
+        .simple-list,
+        .english-list,
+        .chinese-list,
+        .pop-list {
+          font-size: 14px;
+        }
+        .simple-links,
+        .english-links,
+        .chinese-links,
+        .pop-links {
+          flex-direction: column;
+          gap: 6px;
+          margin: -4px 0 14px;
+        }
+        .simple-meta,
+        .english-meta,
+        .chinese-meta,
+        .pop-meta {
+          flex-direction: column;
+          gap: 6px;
+          margin-top: 14px;
+        }
+        .simple-keywords li,
+        .english-keywords li,
+        .chinese-keywords li,
+        .pop-keywords li {
+          font-size: 11px;
+          padding: 5px 10px;
+        }
+        .pop-illustration {
+          width: 100%;
+          margin-bottom: 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="tabs" role="tablist" aria-label="Design switcher">
+      <button class="tab" role="tab" aria-selected="true" aria-controls="panel-simple" id="tab-simple">
+        日本語
+      </button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-english" id="tab-english">
+        English
+      </button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-chinese" id="tab-chinese">
+        中文
+      </button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-pop" id="tab-pop">
+        ポップ
+      </button>
+    </nav>
+
+    <section class="panel active" id="panel-simple" role="tabpanel" aria-labelledby="tab-simple">
+      <div class="design-simple simple-wrap">
+        <main class="simple-card">
+          <h1 class="simple-name">
+            <ruby>山本 裕太郎<rt>やまもと ゆうたろう</rt></ruby>
+          </h1>
+          <p class="simple-affiliation">
+            名古屋大学大学院 環境学研究科<br />
+            社会環境学専攻 環境政策論講座
+          </p>
+          <div class="simple-links">
+            <a href="https://www.nagoya-u.ac.jp" target="_blank" rel="noopener noreferrer">名古屋大学</a>
+            <a href="https://www.env.nagoya-u.ac.jp" target="_blank" rel="noopener noreferrer">環境学研究科</a>
+            <a href="https://www.social.env.nagoya-u.ac.jp/social/" target="_blank" rel="noopener noreferrer">社会環境学専攻</a>
+          </div>
+          <div class="simple-divider" aria-hidden="true"></div>
+          <p class="simple-theme-label">RESEARCH THEME</p>
+          <p class="simple-theme">水産物のエコラベル</p>
+          <p class="simple-section-title">RESEARCH OVERVIEW</p>
+          <p class="simple-body-text">
+            持続可能な水産資源管理の推進において、水産物のエコラベル（環境認証）は重要な役割を果たしています。本研究では、
+            エコラベルが消費者の購買行動にどのような影響を与えるのかを、経済学的手法を用いて分析しています。
+          </p>
+          <p class="simple-body-text">特に、以下の点に注目しています。</p>
+          <ul class="simple-list">
+            <li>エコラベルの有無が購買選択に与える影響</li>
+            <li>消費者が環境配慮型水産物に対してどの程度の追加支払意思額（WTP）を持つか</li>
+            <li>産地情報や資源管理情報などの情報提供が評価に与える効果</li>
+          </ul>
+          <p class="simple-body-text">
+            アンケート調査や選択実験（Choice Experiment）を実施し、統計モデルを用いて消費者の選択行動を分析しています。
+          </p>
+          <p class="simple-section-title">RESEARCH PURPOSE</p>
+          <ul class="simple-list">
+            <li>日本における水産エコラベルの経済的価値を明らかにすること</li>
+            <li>情報提供のあり方が消費者行動に与える影響を検証すること</li>
+            <li>持続可能な水産業の推進に資する政策的示唆を導くこと</li>
+          </ul>
+          <p class="simple-section-title">RESEARCH FEATURES</p>
+          <ul class="simple-list">
+            <li>環境経済学・行動経済学の理論に基づく実証分析</li>
+            <li>水産資源管理と市場メカニズムを結びつけた研究</li>
+            <li>消費者データに基づく定量的アプローチ</li>
+          </ul>
+          <p class="simple-section-title">RESEARCH KEYWORDS</p>
+          <ul class="simple-keywords">
+            <li>環境経済学</li>
+            <li>水産経済学</li>
+            <li>資源管理</li>
+            <li>持続可能な水産業</li>
+            <li>環境認証制度</li>
+            <li>エコラベル</li>
+            <li>消費者行動分析</li>
+            <li>選択実験法</li>
+            <li>支払意思額（WTP）</li>
+            <li>実証分析</li>
+          </ul>
+          <div class="simple-meta">
+            <span>最終更新日: <time id="simple-updated">2026-02-09</time></span>
+            <span>来訪者数: <span id="simple-visits">-</span> 回</span>
+          </div>
+          <p class="simple-note">※この端末での閲覧回数</p>
+        </main>
+      </div>
+    </section>
+
+    <section class="panel" id="panel-english" role="tabpanel" aria-labelledby="tab-english">
+      <div class="design-english english-wrap">
+        <main class="english-card">
+          <h1 class="english-name">Yutaro Yamamoto</h1>
+          <p class="english-affiliation">
+            Graduate School of Environmental Studies, Nagoya University
+            <br />
+            Department of Social and Environmental Studies, Environmental Policy
+          </p>
+          <div class="english-links">
+            <a href="https://www.nagoya-u.ac.jp" target="_blank" rel="noopener noreferrer">Nagoya University</a>
+            <a href="https://www.env.nagoya-u.ac.jp" target="_blank" rel="noopener noreferrer">Graduate School of Environmental Studies</a>
+            <a href="https://www.social.env.nagoya-u.ac.jp/social/" target="_blank" rel="noopener noreferrer">Department of Social and Environmental Studies</a>
+          </div>
+          <div class="english-divider" aria-hidden="true"></div>
+          <p class="english-theme-label">RESEARCH THEME</p>
+          <p class="english-theme">Eco-Labels for Seafood</p>
+          <p class="english-section-title">RESEARCH OVERVIEW</p>
+          <p class="english-body-text">
+            Eco-labels (environmental certifications) for seafood play an important role in promoting sustainable
+            fisheries management. This research analyzes how eco-labels influence consumer purchasing behavior
+            using economic methods.
+          </p>
+          <p class="english-body-text">In particular, the study focuses on:</p>
+          <ul class="english-list">
+            <li>The effect of eco-label presence on purchase choices</li>
+            <li>Consumers' willingness to pay (WTP) a premium for environmentally friendly seafood</li>
+            <li>The impact of information provision such as origin and resource management details</li>
+          </ul>
+          <p class="english-body-text">
+            Surveys and choice experiments are conducted, and statistical models are used to analyze consumer
+            choice behavior.
+          </p>
+          <p class="english-section-title">RESEARCH PURPOSE</p>
+          <ul class="english-list">
+            <li>Clarify the economic value of seafood eco-labels in Japan</li>
+            <li>Examine how information provision affects consumer behavior</li>
+            <li>Derive policy implications that support sustainable fisheries</li>
+          </ul>
+          <p class="english-section-title">RESEARCH FEATURES</p>
+          <ul class="english-list">
+            <li>Empirical analysis based on environmental and behavioral economics</li>
+            <li>Research linking fisheries resource management with market mechanisms</li>
+            <li>Quantitative approaches based on consumer data</li>
+          </ul>
+          <p class="english-section-title">RESEARCH KEYWORDS</p>
+          <ul class="english-keywords">
+            <li>Environmental Economics</li>
+            <li>Fisheries Economics</li>
+            <li>Resource Management</li>
+            <li>Sustainable Fisheries</li>
+            <li>Environmental Certification</li>
+            <li>Eco-Labeling</li>
+            <li>Consumer Behavior Analysis</li>
+            <li>Choice Experiments</li>
+            <li>Willingness to Pay (WTP)</li>
+            <li>Empirical Analysis</li>
+          </ul>
+          <div class="english-meta">
+            <span>Last updated: <time id="english-updated">2026-02-09</time></span>
+            <span>Visits: <span id="english-visits">-</span></span>
+          </div>
+          <p class="english-note">*Counted per device (local storage).</p>
+        </main>
+      </div>
+    </section>
+
+    <section class="panel" id="panel-chinese" role="tabpanel" aria-labelledby="tab-chinese">
+      <div class="design-chinese chinese-wrap">
+        <main class="chinese-card">
+          <h1 class="chinese-name">山本 裕太郎</h1>
+          <p class="chinese-affiliation">
+            名古屋大学 环境学研究科<br />
+            社会环境学专攻 环境政策论讲座
+          </p>
+          <div class="chinese-links">
+            <a href="https://www.nagoya-u.ac.jp" target="_blank" rel="noopener noreferrer">名古屋大学</a>
+            <a href="https://www.env.nagoya-u.ac.jp" target="_blank" rel="noopener noreferrer">环境学研究科</a>
+            <a href="https://www.social.env.nagoya-u.ac.jp/social/" target="_blank" rel="noopener noreferrer">社会环境学专攻</a>
+          </div>
+          <div class="chinese-divider" aria-hidden="true"></div>
+          <p class="chinese-theme-label">研究主题</p>
+          <p class="chinese-theme">水产品的生态标签</p>
+          <p class="chinese-section-title">研究内容</p>
+          <p class="chinese-body-text">
+            在推动可持续渔业资源管理方面，水产品生态标签（环境认证）发挥着重要作用。本研究采用经济学方法分析生态标签对消费者购买行为的影响。
+          </p>
+          <p class="chinese-body-text">重点关注以下问题：</p>
+          <ul class="chinese-list">
+            <li>生态标签有无对购买选择的影响</li>
+            <li>消费者对环境友好型水产品的支付意愿（WTP）</li>
+            <li>产地与资源管理等信息提供对评价的影响</li>
+          </ul>
+          <p class="chinese-body-text">
+            通过问卷调查与选择实验，并使用统计模型分析消费者的选择行为。
+          </p>
+          <p class="chinese-section-title">研究目的</p>
+          <ul class="chinese-list">
+            <li>阐明日本水产生态标签的经济价值</li>
+            <li>检验信息提供方式对消费者行为的影响</li>
+            <li>提出促进可持续渔业的政策启示</li>
+          </ul>
+          <p class="chinese-section-title">研究特点</p>
+          <ul class="chinese-list">
+            <li>基于环境经济学与行为经济学的实证分析</li>
+            <li>连接渔业资源管理与市场机制的研究</li>
+            <li>基于消费者数据的定量分析方法</li>
+          </ul>
+          <p class="chinese-section-title">研究关键词</p>
+          <ul class="chinese-keywords">
+            <li>环境经济学</li>
+            <li>渔业经济学</li>
+            <li>资源管理</li>
+            <li>可持续渔业</li>
+            <li>环境认证制度</li>
+            <li>生态标签</li>
+            <li>消费者行为分析</li>
+            <li>选择实验法</li>
+            <li>支付意愿（WTP）</li>
+            <li>实证分析</li>
+          </ul>
+          <div class="chinese-meta">
+            <span>最后更新日: <time id="chinese-updated">2026-02-09</time></span>
+            <span>访问次数: <span id="chinese-visits">-</span></span>
+          </div>
+          <p class="chinese-note">*此设备内计数（local storage）。</p>
+        </main>
+      </div>
+    </section>
+
+    <section class="panel" id="panel-pop" role="tabpanel" aria-labelledby="tab-pop">
+      <div class="design-pop pop-wrap">
+        <main class="pop-card">
+          <div class="pop-badge">RESEARCHER PROFILE</div>
+          <div class="pop-illustration" aria-hidden="true">
+            <svg viewBox="0 0 520 160" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="waveGrad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#3db7ff" />
+                  <stop offset="50%" stop-color="#34c77a" />
+                  <stop offset="100%" stop-color="#ff5a7a" />
+                </linearGradient>
+              </defs>
+              <rect x="0" y="0" width="520" height="160" rx="18" fill="#ffffff" />
+              <path
+                d="M0 96 C40 76, 80 116, 120 96 C160 76, 200 116, 240 96 C280 76, 320 116, 360 96 C400 76, 440 116, 480 96 C500 86, 510 82, 520 80"
+                fill="none"
+                stroke="url(#waveGrad)"
+                stroke-width="8"
+                stroke-linecap="round"
+              />
+              <path
+                d="M0 124 C40 104, 80 144, 120 124 C160 104, 200 144, 240 124 C280 104, 320 144, 360 124 C400 104, 440 144, 480 124 C500 114, 510 110, 520 108"
+                fill="none"
+                stroke="#9bdcff"
+                stroke-width="6"
+                stroke-linecap="round"
+              />
+              <g transform="translate(70 34)">
+                <ellipse cx="52" cy="46" rx="46" ry="30" fill="#ff9db3" />
+                <polygon points="8,46 -12,30 -12,62" fill="#ff7f9c" />
+                <circle cx="76" cy="40" r="5" fill="#1f1f1f" />
+                <path d="M72 52 Q82 58 94 52" fill="none" stroke="#1f1f1f" stroke-width="3" stroke-linecap="round" />
+              </g>
+              <g transform="translate(320 46)">
+                <ellipse cx="48" cy="38" rx="40" ry="26" fill="#7fd3ff" />
+                <polygon points="12,38 -6,26 -6,50" fill="#58bff5" />
+                <circle cx="66" cy="34" r="4" fill="#1f1f1f" />
+                <path d="M62 44 Q70 48 80 44" fill="none" stroke="#1f1f1f" stroke-width="3" stroke-linecap="round" />
+              </g>
+              <circle cx="420" cy="32" r="10" fill="#fff3a6" stroke="#f3d25f" stroke-width="3" />
+            </svg>
+          </div>
+          <h1 class="pop-name">
+            <ruby>山本 裕太郎<rt>やまもと ゆうたろう</rt></ruby>
+          </h1>
+          <p class="pop-affiliation">
+            名古屋大学大学院 環境学研究科<br />
+            社会環境学専攻 環境政策論講座
+          </p>
+          <div class="pop-links">
+            <a href="https://www.nagoya-u.ac.jp" target="_blank" rel="noopener noreferrer">名古屋大学</a>
+            <a href="https://www.env.nagoya-u.ac.jp" target="_blank" rel="noopener noreferrer">環境学研究科</a>
+            <a href="https://www.social.env.nagoya-u.ac.jp/social/" target="_blank" rel="noopener noreferrer">社会環境学専攻</a>
+          </div>
+          <div class="pop-chips">
+            <span class="pop-chip">研究テーマ</span>
+            <span class="pop-chip alt">水産物のエコラベル</span>
+            <span class="pop-chip alt2">環境認証・消費者行動</span>
+          </div>
+          <div class="pop-accent-bar" aria-hidden="true"></div>
+          <section class="pop-section">
+            <h2 class="pop-section-title">研究内容</h2>
+            <p class="pop-body-text">
+              海の魚をずっと大切にしていくために、魚についている「エコラベル」はとても大事です。
+              この研究では、エコラベルがあると人の買い方がどう変わるのかを調べています。
+            </p>
+            <p class="pop-body-text">特に、以下の点に注目しています。</p>
+            <ul class="pop-list">
+              <li>エコラベルがあると、買う魚は変わるのか</li>
+              <li>環境にやさしい魚に、いくらまでなら多く払うと思うのか</li>
+              <li>どこでとれたかなどの情報で、見方が変わるのか</li>
+            </ul>
+            <p class="pop-body-text">
+              アンケートや簡単な選ぶテストをして、みんなの選び方をまとめています。
+            </p>
+          </section>
+          <section class="pop-section">
+            <h2 class="pop-section-title">研究の目的</h2>
+            <ul class="pop-list">
+              <li>エコラベルの大切さを、わかりやすくする</li>
+              <li>情報の出し方で、買い方が変わるか確かめる</li>
+              <li>海と魚を守るためのヒントを見つける</li>
+            </ul>
+          </section>
+          <section class="pop-section">
+            <h2 class="pop-section-title">研究の特徴</h2>
+            <ul class="pop-list">
+              <li>数字やデータを使って、わかりやすく調べる</li>
+              <li>海の資源と、お店での買い方をつなげて考える</li>
+              <li>たくさんの人の答えをまとめて比べる</li>
+            </ul>
+          </section>
+          <section class="pop-section">
+            <h2 class="pop-section-title">研究キーワード</h2>
+            <ul class="pop-keywords">
+              <li>環境経済学</li>
+              <li>水産経済学</li>
+              <li>資源管理</li>
+              <li>持続可能な水産業</li>
+              <li>環境認証制度</li>
+              <li>エコラベル</li>
+              <li>消費者行動分析</li>
+              <li>選択実験法</li>
+              <li>支払意思額（WTP）</li>
+              <li>実証分析</li>
+            </ul>
+          </section>
+          <div class="pop-meta">
+            <span>最終更新日: <time id="pop-updated">2026-02-09</time></span>
+            <span>来訪者数: <span id="pop-visits">-</span> 回</span>
+          </div>
+          <p class="pop-note">※この端末での閲覧回数</p>
+        </main>
+      </div>
+    </section>
+
+    <script>
+      const tabs = document.querySelectorAll(".tab");
+      const panels = document.querySelectorAll(".panel");
+
+      const activateTab = (targetId) => {
+        tabs.forEach((tab) => {
+          tab.setAttribute("aria-selected", tab.getAttribute("aria-controls") === targetId);
+        });
+        panels.forEach((panel) => {
+          panel.classList.toggle("active", panel.id === targetId);
+        });
+      };
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => activateTab(tab.getAttribute("aria-controls")));
+      });
+
+      const visitKey = "profileVisits";
+      const currentVisits = Number.parseInt(localStorage.getItem(visitKey) || "0", 10) + 1;
+      localStorage.setItem(visitKey, String(currentVisits));
+
+      const visitTargets = [
+        document.getElementById("simple-visits"),
+        document.getElementById("english-visits"),
+        document.getElementById("chinese-visits"),
+        document.getElementById("pop-visits"),
+      ];
+
+      visitTargets.forEach((el) => {
+        if (el) el.textContent = currentVisits.toLocaleString("ja-JP");
+      });
+    </script>
+  </body>
+</html>
